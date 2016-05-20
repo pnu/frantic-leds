@@ -9,6 +9,8 @@
 
 #define BRIGHTNESS 100
 
+#define START 131
+
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_LEDS, PIN, NEO_GRBW + NEO_KHZ800);
 
 void setup() {
@@ -25,10 +27,11 @@ void loop() {
 
 // Fill the dots one after the other with a color
 void colorWipe(uint32_t c, uint8_t wait) {
-  for(uint16_t i=0; i<strip.numPixels(); i++) {
-    strip.setPixelColor(i, c);
+  uint16_t n = strip.numPixels();
+  for(uint16_t i=0; i<n; i++) {
+    strip.setPixelColor((n-i+START) % n, c);
     strip.show();
-    delay(wait);
+//    delay(wait);
   }
 }
 
